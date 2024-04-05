@@ -108,6 +108,86 @@
                     // }
 
                     
+                            // УГАДАЙ СЛОВО //
+
+        function round() {    
+             
+            let list = ["яблоко", "апельсин", "банан", "абрикос", "персик", "виноград", "вишня",
+             "черешня", "малина", "клубника", "ежевика", "арбуз", "помидор", "картофель", "лук",
+              "капуста", "груша", "мандарин"];
+            //   alert(list[0].length);
+            let playerChoose = +prompt("Какое количество букв в слове хотите загадать?");
+            
+            let randomList = [];
+            for (let i = 0; i <= list.length - 1; i++ ) {
+                 if (playerChoose == list[i].length) {
+                    randomList.push(list[i]);
+                } 
+               }
+             function randomWord() {
+                return randomList[Math.floor(Math.random() * randomList.length)];
+             }
+             
+             let word = randomWord();
+            //  alert(word);
+
+             let playerWord;
+             let letter;
+             let letterCombine = [];
+             for (let i = 0; i < word.length; i++) {
+                letterCombine.push("_");
+             }
+             let counter = 0;
+             let lives = +prompt("укажите количество жизней");
+           
+            //  function round() {
+            stop:for(let j = 0; j <= 5; j++){
+                    
+                if (confirm("Готовы угадать слово целиком")) {
+                        playerWord = prompt("Ваше слово")
+                        counter++
+                        lives--;
+                    } else {
+                        alert("тогда угадываем букву");
+                        letter = prompt("буква");
+                        counter++
+                        lives--
+                    }
+
+                    // alert(letter);
+                     if (playerWord == word) {
+                        alert("Угадали, слово было: " + word  + ", попыток потрачено: " + counter);
+                        break stop;
+                     }
+                    
+                    for (let i = 0; i <= word.length; i++ ) {
+                        if (letter == word[i]) { 
+                           letterCombine[i] = (letter);
+                        } 
+                    }
+
+                    if (lives == 0) {
+                        alert("последняя попытка угадать слово:");
+                        alert("Ваши буквы: " + letterCombine + "   Остаток жизней: " + lives);
+                        playerWord = prompt("Ваше слово");
+                            if (playerWord == word){
+                                 alert("Угадали, слово было: " + word  + ", попыток потрачено: " + counter);
+                                 break stop;
+                            } else {
+                                alert("Вы потратили все жизни! Слово было: " + word);
+                                break stop;
+                            }
+                    } 
+                    
+                    
+                    
+                    alert("Ваши буквы: " + letterCombine + "   Остаток жизней: " + lives);
+                }
+         }
+
+        //    round();
+            
+                          //........ УГАДАЙ СЛОВО КОНЕЦ ............//
 
 
 
