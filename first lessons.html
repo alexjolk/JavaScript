@@ -285,6 +285,153 @@
                 //  alert(obj.my);
                 //  alert(obj[0]);
 
+
+                // let shopping = {
+                //     apple: "3kg",
+                //     banana: "2kg",
+                //     tomatoes: "1kg",
+                // }
+                // for (let summ in shopping) {
+                //     alert(summ + "in pocket" )
+                // }
+
+                // let user = {};
+                // user.name = "John";
+                // alert(user.name);
+                // user.surname = "Smith";
+                // alert(user.surname);
+                // user.name = "Pete";
+                // alert(user.name);
+                // delete user.name;
+                // alert(user.name);
+                // for (let check in user){
+                //     alert(check);
+                // }
+
+                // function isEmpty(obj) {
+                //     for (let key in obj) {
+                //        return alert(false);
+                //     }
+                //   return alert(true) ;   
+                // }
+                
+                // let first = {
+                //     name: "Alex",
+                // }
+                // let second = {}
+
+                // isEmpty(first);
+                // isEmpty(second);
+
+                // let yearChek = {
+                //     Jn: 350, 
+                //     Fb: 300,
+                //     Mrth: 250,
+                // }
+                // let summ = 0;
+                // for (let key in yearChek) {
+                //     summ += (yearChek[key]);
+                // }
+                // alert(summ);
+
+                // function multiplyNumeric(obj) {
+                //     for (let key in obj) {
+                //         if (typeof obj[key] == "number") {
+                //           return alert(obj[key] *= 2);
+                //         } else {
+                //             return alert("not number");
+                //         }
+                //     }
+                // }
+
+                // let first = {
+                //     alex: 10,
+                //     alex2: "print",
+                //     alex3: 5,
+                // }
+                // multiplyNumeric(first);
+                                        // МЕТОДЫ ОБЪЕКТА, "this" //
+                // let user = {
+                //     name: "Alex",
+                //     age: 31,
+                //     sayHi() {
+                //         alert("Hello " + this.name);
+                //     }
+                // }
+                // user.sayHi();
+
+                // let user = {name: "Alex",};
+                // let admin = {name: "Bob"};
+                // function sayHi() {
+                //     alert(this.name + ", wellcome");
+                // }
+                // user.f = sayHi;
+                // admin.f = sayHi;
+                // user.f();
+                // admin.f();
+
+                // let calculator = {
+                //     read() {
+                //         this.a = +prompt("первое число");
+                //         this.b = +prompt("второче число число");
+                //     },
+                //     sum() {
+                //         return alert("sum = " + (this.a + this.b));
+                //     },
+                //     multi() {
+                //         return alert("multi = " + (this.a * this.b));
+                //     },
+                // }
+                // function result() {
+                // calculator.read();
+                // calculator.sum();
+                // calculator.multi();
+                // }
+                // result();
+
+                // let ladder = {
+                //     step: 0,
+                //     up() {
+                //         this.step++;
+                //     },
+                //     down() {
+                //         this.step--;
+                //     },
+                //     showStep: function() { 
+                //         alert( this.step );
+                //     }
+                //     };
+                //     ladder.up();
+                //     ladder.up();
+                //     ladder.down();
+                //     ladder.showStep(); 
+                //     ladder.down();
+                //     ladder.showStep(); 
+
+                    // let ladder = {
+                    // step: 0,
+                    // up() {
+                    //     this.step++;
+                    //     return this; //тут благодаря return this, можно
+                    // },
+                    // down() {
+                    //     this.step--;
+                    //     return this; // вызвать ladder по цепочке
+                    // },
+                    // showStep() {
+                    //     alert( this.step );
+                    //     return this; // не прописывая ladder каждый раз при вызове методаю
+                    // }
+                    // };
+
+                    // ladder
+                    //     .up()
+                    //     .up()
+                    //     .down()
+                    //     .showStep() // 1
+                    //     .down()
+                    //     .showStep(); // 0
+
     </script>
 
     
