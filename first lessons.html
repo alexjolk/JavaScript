@@ -432,6 +432,88 @@
                     //     .down()
                     //     .showStep(); // 0
 
+
+                              // NEW FUNCTIONS //
+
+                    // function User(name, subname) {
+                    //     this.name = name;
+                    //     this.isAdmin = false;
+                    //     this.subname = subname;
+                    // }
+
+                    // let user = new User("Alex", "Fixik");
+                    // alert("Hello, " + user.name + " " + user.subname);
+
+                    // function User(name, subname) {
+                    //     this.name = name;
+                    //     this.subname = subname;
+                        // this.sayHi = function() { //добавляем метод в функцию-конструктор.
+                    //         alert("Hello, " + user.name + " " + user.subname);
+                    //     };
+                    // }
+
+                    // let user = new User("Alex", "Fixik");
+                    // user.sayHi();
+                   
+                //    function Calculator() {
+                     
+                //     this.read = function() {
+                //         this.a = +prompt("first");
+                //         this.b = +prompt("second");
+                //      };
+
+                //      this.sum = function() {
+                //         return this.a + this.b;
+                //      };
+
+                //      this.mul = function() {
+                //         return this.a * this.b;
+                //      };
+                //    }
+                //    let calculator = new Calculator();
+                //    calculator.read();
+                //    alert(calculator.sum());
+                //    alert(calculator.mul());
+
+                // function Accumulator(value) {
+                //     this.value = value;
+                //     this.read = function() {
+                //        this.value = this.value + +prompt("увеличиваем на...");
+                //     }
+                    
+                // }
+
+                // let result = new Accumulator(1);
+                // result.read();
+                // alert(result.value);
+
+                // let user = {}
+                // alert(user.name?.subname?.adress);
+
+                            //...........Symbol..........//
+
+                // let admin = Symbol("Alex");
+                // alert(admin.toString());
+                // let user = Symbol("Alex");
+                // alert(admin === user);
+                
+                // let age = Symbol("age");
+                // let visitor = {
+                //     name: "Vasya",
+                //     [age]: 31,
+                //     subname: "fixik",
+                // }
+                // let key;
+                // for( let key in visitor) {
+                //     key = visitor[key] + " hello ";  // [age] = 31, не видно т.к. символ
+                //     alert(key);
+                // }
+                
+                // let visitor2 = Object.assign(visitor); //клон, вместе с символом age = 31
+                // alert(visitor2[age]);
+
+
+
     </script>
 
     
