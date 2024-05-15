@@ -883,10 +883,942 @@
 // }
 // console.log(test(users));
 
+////////////////////////////////////////////// obj.iterator /////////////////////////////
+//////////////////////////// в этом случае сам объект range выступает как итератор
+// let range = {
+//     from: 1,
+//     to: 5,
+//     [Symbol.iterator] () {
+//         this.current = this.from;
+//         return this
+//     },
+//     next() {
+//         if(this.current <= this.to) {
+//             return {done: false, value: this.current++};
+//         } else {
+//             return {done: true};
+//         }
+//     }
+// };
+// for(let num of range) {
+//     console.log(num);
+// }
+//////////////////// а в этом случае, итератор next() находится внутри объекта и отделен от самого объекта
+// let range = {
+//     from: 3,
+//     to: 7,
+// };
+// range[Symbol.iterator] = function() {
+//     return {
+//         current: this.from,
+//         last: this.to,
+//         next() {
+//             if(this.current <= this.last) {
+//                 return {done: false, value: this.current++};
+//             } else {
+//                 return{done: true};
+//             }
+//         }
+//     }
+// }
+// for(let num of range) {
+//     console.log(num);
+// }
+
+/////////////////////////// строка итерируется посимвольно/////////////
+
+// let str = "Hello";
+
+
+// let iterator = str[Symbol.iterator]();
+
+// while (true) {
+//   let result = iterator.next();
+//   if (result.done) break;
+//   console.log(result.value); 
+// }
+
+//////////////////////////// Array.from /////////////////////////
+// делаяет из псевдомассива или итерируемого объекта обычный массив
+
+// let range = {
+//     from: 3,
+//     to: 7,
+// };
+// range[Symbol.iterator] = function() {
+//     return {
+//         current: this.from,
+//         last: this.to,
+//         next() {
+//             if(this.current <= this.last) {
+//                 return {done: false, value: this.current++};
+//             } else {
+//                 return{done: true};
+//             }
+//         }
+//     }
+// }
+// for(let num of range) {
+//     console.log(num);
+// }
+
+// /////console.log(range.map(item => item * item)); ///// без преобразования в массив, возвращает ошибку
+
+// let arr = Array.from(range);    ///// сделали из итерируемого объекта массив и применили метод//
+// console.log(arr.map(item => item * item));
+
+// /////функцию можно вставить сразу как аргумент для Array.from
+
+// let arr2 = Array.from(range, item => item * item);
+// console.log(arr2);
+
+                        //////////////////////////// Map & Set////////////////////////////
+
+// let map = new Map();
+// map.set("1", "str1");
+// map.set(1, "num1");
+// map.set(true, "Boolean");
+// console.log(map.get(1));
+///////////////////////////////////
+
+// let recipeMap = new Map([
+//   ["огурец", 500],
+//   ["помидор", 350],
+//   ["лук",    50]
+// ]);
+
+// for(let vegetables of recipeMap) {
+//     console.log(recipeMap.keys());
+//     console.log(recipeMap.values());
+//     console.log(recipeMap.entries());
+// }
+
+// recipeMap.forEach((value, key, map) => {
+//     console.log(`${key}: ${value}`);
+// })
+///////////////////////////////////////// Object.entries() & Object.fromEntries()///////////////////////////
+
+// let obj = {};
+// obj["banana"] = 1;
+// obj["orange"] = 2;
+// obj["meat"] = 4;
+
+// let map = new Map(Object.entries(obj));
+// console.log(map.entries());
+
+// let map1 = new Map([
+//     ["banana", 1],
+//     ["orange", 2],
+//     ["meat", 4],
+// ]);
+
+// let obj1 = Object.fromEntries(map1);
+// console.log(obj1);
+
+/////////////////////////////////////////// ЗАДАЧИ ПО Map & Set ////////////////////////////
+
+// let values = ["Hare", "Krishna", "Hare", "Krishna",
+//   "Krishna", "Krishna", "Hare", "Hare", ":-O"
+// ];
+
+// let set = new Set();
+// values.forEach(item => set.add(item));
+// console.log(set);
+// function unique(arr) {
+//     return Array.from(new Set(arr));
+// }
+// console.log(unique(values));
+
+////////////////////////////////////////////////////////////////////////////////////
+
+// let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+// function aclean(arr) {
+//     let map = new Map()
+//     for(let word of arr) {
+//         let sorted = word.toLowerCase().split("").sort().join("");
+//         console.log(sorted);
+//         map.set(sorted , word);
+//         console.log(map);
+//     }
+//     return Array.from(map.values())
+// }
+// console.log(aclean(arr))
+
+////////////////////////////////////////////////////////////////////////////////////
+
+// let map = new Map()
+// map.set("work", "try hard");
+// map.set("try work", "try hard");
+// map.set("work", "try hard");
+// console.log(map);
+
+//////////////////////////////////////////////////////
+
+// let map = new Map();
+// map.set("name", "John");
+// let keys = Array.from(map.keys());
+// console.log(keys);
+// keys.push("age");
+// console.log(keys);
+
+
+/////////////////////////////////////// WeakMap & weakSet /////////////////////////////////
+
+// let messages = [
+//   {text: "Hello", from: "John"},
+//   {text: "How goes?", from: "John"},
+//   {text: "See you soon", from: "Alice"}
+// ];
+
+// let answers = new WeakSet();
+// console.log(messages);
+// answers.add(messages[0]);
+// answers.add(messages[1]);
+// console.log(answers);
+// answers.add(messages[0]);
+// console.log(answers);
+// console.log("Read message 0: " + answers.has(messages[0]))
+// console.log(messages);
+// messages.shift()
+// console.log(answers);
+// console.log(messages);
+
+
+////////////////////////////////////// ТРАНСФОРМАЦИИ ОБЪЕКТОВ, ПЕРЕБОР ОБЪЕКТОВ //////////////////////////////
+
+// let salaries = {
+//   "John": 100,
+//   "Pete": 300,
+//   "Mary": 250
+// };
+// function sumSalaries(salaries) {
+//     let sum = 0
+//     for(let item of Object.values(salaries)) {
+//         sum += item
+//     }
+//     return sum;
+// }
+// console.log(sumSalaries(salaries))
+///////////////////////////////////////////////////////////////////////////
+
+// let user = {
+//   name: 'John',
+//   age: 30
+// };
+
+// function count(obj) {
+//     return Object.keys(obj).length;
+// }
+// console.log(count(user));
+
+////////////////////////////////////////ДЕСТРУКТУРИЗАЦИЯ МАССИВА///////////////////////////////////////
+
+// let arr = ["Alex", "Zholk"];
+// let [firstName, surname] = arr;
+// console.log(firstName);
+// console.log(surname);
+
+// let [firstName1, surname1, age, wight] = "Alex Zholk 31 81".split(" ");
+// console.log(firstName1);
+// console.log(surname1);
+// console.log(age, wight);
+
+// let [a, b, c, d] = "efg q"
+// console.log(c);
+                                              /////// ЦИКЛ С .entries ///////
+// let user = {
+//     name: "Alex",
+//     age: 31,
+// }
+// for(let [key, value] of Object.entries(user)) {
+//     console.log(` ${key} : ${value} `);
+// }
+
+
+// let user1 = new Map();
+// user1.set("name", "Alex");
+// user1.set("age", "31");
+// for(let [key, value] of user1) {
+//     console.log(` ${key} : ${value} `);
+// }
+
+// let myself = "Alex";                     ///// ОБМЕН ЗНАЧЕНИЙ У ПЕРЕМЕННЫХ /////////
+// let friend = "Vasya";
+// console.log(myself, friend);
+// [myself, friend] = [friend, myself];
+// console.log(`${myself} ${friend} `);
+// console.log(myself, friend);
+                                               /////// ОСТАТОЧНЫЕ ДАННЫЕ //////
+// let [name1, name2, ...rest] = ["Alex", "Vasya", "Nata", "Sonya", "Koka"];
+// console.log(name1);
+// console.log(rest[0]);
+// console.log(rest[2]);
+// console.log(rest.length);
+
+// let [name, surname = prompt('surname?')] = ["Julius"];
+
+// alert(name);    // Julius (из массива)
+// alert(surname); // результат prompt
+
+////////////////// ДЕСТРУКТУРИЗАЦИЯ ОБЪЕКТА, ВЛОЖЕННАЯ ДЕСТРУКТУРИЗАЦИЯ, УМНЫЕ ПАРАМЕТРЫ ФУНКЦИИ//////////////////
+
+// let user = {
+//     name: "Alex",
+//     years: 31,
+// }
+// let {name, years: age, isAdmin = false} = user;
+// console.log(name, age, isAdmin);
+///////////////////////////////////////////////////////////
+// let salaries = {
+//   "John": 100,
+//   "Pete": 300,
+//   "Mary": 250,
+//   "Alex": 550,
+// };
+
+// function topSalary(salaries) {
+//     let result = new Map(Object.entries(salaries));
+//     let salar = 0;
+//     let name = null;
+//     result.forEach((values, key,) => {
+//         if(values >= salar) {
+//             // console.log(key);
+//             salar = values;
+//             name = key;
+//         }
+//     })
+//      return name;
+// }
+
+// console.log(topSalary(salaries))     
+
+//////////////////////////////////////////////////////////
+
+// let options = {
+//     title: "My menu",
+//     items: ["Item1", "Item2"],
+// }
+// function showMenu({title = "Untitled", height = 200, width = 100, items = []}) {
+//     console.log(`${title}, ${width}, ${height}, ${items}`)
+// }
+// showMenu(options);
+
+
+// let time = new Date();
+// console.log(time);
+// let Jan01_1970 = new Date(0);
+// console.log( Jan01_1970 )
+// let time = new Date(2024, 0, 1, 13, 22, 44); //// вводим дату
+// console.log(time);
+// console.log(time.getFullYear());  //// возвращает год
+// console.log(time.getTime());      //// возвращает миллисекунды от 1970г
+// let time2 = new Date(1707974564000);  ////по миллисекундам возвращаем дату
+// console.log(time2);
+// let time3 = new Date("2023, 1, 13");  ////преобразование строки в дату
+// console.log(time3);
+// let time4 = new Date();
+// time4.setFullYear(2024, [1], [12]); ////заполняем пустую дату значениями
+// console.log(time4);
+// let time5 = new Date(2024, 1, 25);
+// time5.setDate(time5.getDate() +2); //// добавляем дни к дате
+// console.log(time5);
+// time5.setDate(time5.getDate() +5); //// перешагиваем в след месяц с помощью автоисправления даты
+// console.log(time5);
+// let time6 = new Date();      
+// time6 = time5 - time3;            //// получаем разницу дат в мс
+// console.log(time6);
+// console.log(new Date(Date.now()));         //// получаем текущую дату
+// console.log(Date.now())          //// текущая дата в мс
+//////////////////////// ЗАДАЧКИ /////////////
+
+// let time = new Date(2012, 1, 20, 3, 12);
+// console.log(time);
+
+//////////////////////////////////////////////////ЗАДАЧА НА ДНИ НЕДЕЛИ/////////////////////////////////////////////////
+
+// function isDay() {
+//     let arr = ["воскресение", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"];
+//     let answer = Date.parse(prompt("введите дату в формате год-месяц-число"));
+//     let date = new Date(answer);
+//     return alert(arr[date.getDay()]);
+// }
+
+// isDay();
+//////////////////////////////////////////////////ЗАДАЧА НА ДНИ НЕДЕЛИ, КОНЕЦ//////////////////////////////////////////////////
+
+// let date = new Date(2015, 0, 2);
+// function getDateAgo(data, days) {
+//     let newDate = data
+//     newDate.setDate(newDate.getDate() - days);
+//     return console.log(newDate);
+// }
+// getDateAgo(date, 100);
+
+//////////////////////////////////////////////////////////////////////////
+
+// function getLastDayOfMonth(year, month) {
+//     let time = new Date();
+//     time.setFullYear(year, [month + 1], []);
+//     return console.log(time.getDate());
+// }
+// getLastDayOfMonth(2012, 1);
+
+//////////////////////////////////////////////////////////////////////////
+
+// function getSecondsToday() {
+//     let time = new Date();
+//     return console.log(time.getHours() * 3600 + time.getMinutes() * 60 + time.getSeconds());
+// }
+// getSecondsToday();
+
+// function getSecondsToTomorrow() {
+//     let time = new Date();
+//     let daySumSec = 24 * 3600;
+//     return console.log( daySumSec - (time.getHours() * 3600 + time.getMinutes() * 60 + time.getSeconds()));
+// }
+// getSecondsToTomorrow();
+
+// function getSecondsToTomorrow() {
+//     let now = new Date();
+//     let tomorrow = new Date(now.getYear(), now.getMonth(), now.getDate() + 1);
+//     return tomorrow - now;
+// }
+// getSecondsToTomorrow();
+
+//////////////////////////////////// JSON, toJSON  //////////////////////////
+
+// let user = {
+//     name: "Alex",
+//     age: 31,
+//     isAdmin: true,
+//     size: {
+//         width: 180,
+//         weight: 80,
+//     },
+//     skills: ["airsoft", "swimming", "cooking"],
+// }
+
+// let jUser = JSON.stringify(user);
+// console.log(user);
+// console.log(jUser);
+
+// let parseUser = JSON.parse(jUser);
+// console.log(parseUser);
+////////////////////////////////////////////////////////////////
+// let user2 = {
+//     name: "Ivan",
+//     age: 22,
+//     isAdmin: false,
+//     size: {
+//         width: 180,
+//         weight: 80,
+//     },
+// }
+
+// let user3 = {
+//     name: "Alice",
+//     age: 25,
+//     isAdmin: false,
+//     size: {
+//         width: 180,
+//         weight: 80,
+//     },
+//     friend: user2,
+// }
+
+// user2.girlfriend = user3;
+
+// // console.log(JSON.stringify(user3)); //////// error
+// console.log(JSON.stringify(user3, function replacer(key, value) {
+//     (`${key}: ${value}`);
+//     return (key == "girlfriend") ? undefined: value;
+// }, 2));
+
+///////////////////////////////// ЗАДАЧИ ПО JSON //////////////////////////
+
+// let user = {
+//     name: "Alex",
+//     age: 38,
+// }
+// let jUser = JSON.parse(JSON.stringify(user));
+// console.log(jUser);
+/////////////////////////////////////
+// let room = {
+//   number: 23
+// };
+
+// let meetup = {
+//   title: "Совещание",
+//   occupiedBy: [{name: "Иванов"}, {name: "Петров"}],
+//   place: room
+// };
+
+
+// room.occupiedBy = meetup;
+// meetup.self = meetup;
+
+// console.log( JSON.stringify(meetup, function replacer(key, value) {
+//   return (key != "" && value == meetup) ? undefined: value;
+// }));
+//////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////// РЕКУРСИЯ /////////////////////////////
+
+// let list = { value: 1 };
+// list.next = { value: 2 };
+// list.next.next = { value: 3 };
+// list.next.next.next = { value: 4 };
+// list.next.next.next.next = null;
+
+// list = { value: "new item", next: list };
+// list = { value: "new item", next: list };
+// console.log(list);
+
+// function sumTo(n) {
+//     let sum = 0
+//     for(let i = 0; i <= n; i++) {
+//         sum += i;
+//     }
+//     return sum;
+// } 
+// console.log(sumTo(10));
+// //////////////////////////////////////////////
+// function sumTo1(n) {
+//     let sum = n 
+//     if(n == 0) {
+//         return sum; 
+//     } else {
+//         n--;
+//      sum += sumTo1(n);
+//      return sum;
+//     }
+// }
+// console.log(sumTo1(100));
+// /////////////////////////////////////////////
+// function sumTo2(n) {
+//  return n * (n + 1) / 2;
+// }
+// console.log(sumTo2(10));
+// ////////////////////////////////////////////
+// function factorial(n) {
+//     if(n == 1) {
+//         return 1
+//     } else {
+//         return n * factorial(n - 1);
+//     }
+// }
+// console.log(factorial(5));
+// /////////////////////////////////////////
+// function fib(n) {
+//     if (n == 1 || n == 2) {
+//         return 1;
+//     } else {
+//         return fib(n - 1) + fib(n - 2);
+//     }
+// }
+// console.log(fib(7));
+// ////////////////////////////////////////
+// function fib1(n) {
+//     let a = 1;
+//     let b = 1;
+//     let c = 0;
+//     for(let i = 3; i <= n; i++) {
+//         c = a + b;
+//         a = b;
+//         b = c;
+//     }
+//     return c;
+// }
+// console.log(fib1(77));
+// /////////////////////////////////////////
+// let list = {
+//   value: 1,
+//   next: {
+//     value: 2,
+//     next: {
+//       value: 3,
+//       next: {
+//         value: 4,
+//         next: null
+//       }
+//     }
+//   }
+// };
+
+// function printList(list) {
+//     let item = list;
+//     while(item) {
+//         console.log(item.value);
+//         item = item.next;
+//     }
+// }
+// console.log(printList(list));
+// /////////////////////////////////////////////////////////
+// function printList1(list) {
+//     console.log(list.value);
+//     if(list.next) {
+//         printList1(list.next);
+//     }
+// }
+// printList1(list);
+/////////////////////////////////////////////////////////
+// function printList1Reverse(list) {
+//     if(list.next) {
+//         printList1Reverse(list.next);
+//     }
+//     console.log(list.value);
+// }
+// printList1Reverse(list);
+// /////////////////////////////////////////////////
+// function printListReverse(list) {
+//     let item = list;
+//     let arr = [];
+//     while(item) {
+//         arr.unshift(item.value);
+//         item = item.next;
+//     }
+//     for(let i = 0; i < arr.length; i++) {
+//         console.log(arr[i]);
+//     }
+// }
+// printListReverse(list);
+
+////////////////////////////////// ОПЕРАТОР ПРИСВАИВАНИЯ, ОСТАТОЧНЫЕ ПРАМЕТРЫ ///////////////////////////////////
+
+// let arr = [1, 2, 15, 3, 12];
+// console.log(Math.max(...arr));
+
+// function sum(args) {
+//     let sum = 0;
+//     for(let arg of args) sum += arg;
+//     return sum;
+// }
+// console.log(sum(arr));
+
+// let arr2 = [2, 4, 6, 8];
+// let merged = [...arr, 100, ...arr2];
+// console.log(merged);
+
+// let str = "Hello"
+// console.log(...str);
+
+////////////////////////////////// ОБЛАСТЬ ВИДИМОСТИ ПЕРЕМЕННЫХ, ЗАМЫКАНИЕ ///////////////////////////////////
+
+
+// function makeCounter() {
+//   let count = 0;
+
+//   return function() {
+//     return count + 1; // 
+//   };
+// }
+
+// let counter = makeCounter();
+// console.log(counter());
+
+// function sum(a) {
+//  return function sum(b) {
+//     return function sum(c) {
+//         return function sum(d) {
+//             return a + b + c + d;
+//         }
+//     }
+//  };
+// };
+// console.log(sum(1)(2)(3)(4));
+// /////////////////////////////////////////////////////////
+
+// let arr = [1, 2, 3, 4, 5, 6, 7];
+
+// function inBetween(a, b) {
+//     return function(x){
+//         if(x >=a && x <= b) {
+//             return x;
+//         }
+//     }
+// }
+
+// function inArray(arr) {
+//     return function(x){
+//         return arr.includes(x);
+//     }
+// }
+// console.log(arr.filter(inBetween(3, 6)));
+// console.log(arr.filter(inArray([2, 3, 5, 7, 9, 10])));
+// /////////////////////////////////////////////////////////////////////
+
+// let users = [
+//   { name: "John", age: 20, surname: "Johnson" },
+//   { name: "Pete", age: 18, surname: "Peterson" },
+//   { name: "Ann", age: 19, surname: "Hathaway" }
+// ];
+
+// function byField(arg) {
+//     return users.sort((a, b) => a[arg] > b[arg] ? 1: -1);
+// }
+// console.log(byField("age"));
+///////////////////////////////////////////////////////////////////
+
+
+// function makeCounter() {
+//     let count = 0;
+//     function counter() {
+//         return count++
+//     }
+//         counter.set = value => value = count;
+//         counter.decrease = () => count--;
+//     return counter;
+// }
+// console.log(makeCounter());
+
+////////////////////////////////////// setTimeout & setInterval //////////////////////
+
+// function sayHi(phrase, who) {
+//     console.log(phrase + " say " + who);
+// }
+// let stop = setTimeout(sayHi, 3000, "Hello", "Alex");
+
+// clearTimeout(stop);
+
+// function sayHiInterval(phrase, who) {
+//     console.log(phrase + " say " + who);
+// }
+// let stop2 = setInterval(sayHiInterval, 2000, "Hello", "Alex");
+
+// setTimeout(() => clearInterval(stop2), 7000);
+
+///////////////////////////////////////////// ВЛОЖЕННЫЙ setTimeout //////////////////////////
+
+// let time = 1000;
+// let a = 50
+// let timerId = setTimeout(function test() {
+//     stop : if(a <= 50 && a >= 38) {
+//         time = 500;
+//     } else {
+//         time = 100;
+//     };
+//     a--;
+//     if(a != 0) {
+//     timerId = setTimeout(test, time);
+//     }
+//     console.log(a);
+
+// }, time)
+/////////////////////////////////// Декораторы и переадресация вызова, call/apply/bind////////////////////////
+
+// function printName(text1, text2) {
+//     console.log(this.name + text1 + text2);
+// }
+// let admin = {
+//     name: "alex",
+// }
+// printName.call(admin, ", hello", " my friend");
+// printName.apply(admin, [", hello", " bro"]);
+// let user = printName.bind(admin, ", hi", " man");
+// user();
+// let user2 = printName.bind(admin, ", hi");
+// user2(" watsapp");
+
+// function mul(a, b) {
+//     console.log(a * b);
+// }
+// let double = mul.bind(null, 2);
+// let triple = mul.bind(null, 3);
+// double(3);
+// triple(3);
+// let multy = mul.bind(null);
+// multy(2, 5);
+
+///////////////////////////////////////////////декораторы:
+
+// let printValue = (x) => {
+//     //тут что-то сложное и ресурсоемкое
+//     return x * 2
+// }
+// let cachingDecorator = (func) => {
+//     let cache = new Map()
+
+//     return function(x) {
+//         if(cache.has(x)) { 
+//             console.log("я беру инфу из кеша");
+//             return cache.get(x); 
+//         }
+
+//         let result = func(x)
+//         cache.set(x, result)
+//         console.log("я беру инфу не из кеша");
+//         return result;
+        
+//     };
+// };
+
+// printValue = cachingDecorator(printValue);
+
+// console.log(printValue(4));
+// console.log(printValue(4));
+////////////////////////////заимствование метода//////////////////////////
+
+// function hash() {
+//   alert( [].join.call(arguments) ); // 1,2
+// }
+
+// hash(1, 2, 3, 4);
+///////////////////////////////////////// TASKs //////////////////////
+
+// function work(a, b) {
+//   console.log( a + b ); // произвольная функция или метод
+// }
+
+// function spy(func) {
+//     function wrapper(...args) {
+//         wrapper.calls.push(args);
+//         return func.apply(this, args);
+//     }
+//     wrapper.calls = [];
+//     return wrapper;
+// }
+
+// work = spy(work);
+
+// work(1, 2); 
+// work(2, 3); 
+// work(3, 4); 
+
+// for (let args of work.calls) {
+//  console.log( 'call:' + args.join() ); // "call:1,2", "call:4,5"
+// }
+
+
+//////////////////////////////////////////////////////
+
+// function f(x) {
+//   console.log(x);
+// }
+
+// // создаём обёртки
+// let f3000 = delay(console.log, 3000);
+// let f4000 = delay(console.log, 4000);
+
+// function  delay(f, arg) {
+//     return function() {
+//         setTimeout(() => f.apply(this, arguments), arg);
+//     }
+// }
+// f3000("hello");
+//////////////////////////////////////////////////////////////////////
+
+// for(let key of user) {                              // привязка множества методов объекта к this. через цикл и bind.
+//     if(typeof user[key] == "function") {
+//         user[key] = user[key].bind(user);
+//     }
+// }
+//////////////////////////////////////////////////////
+
+// let group = {
+//   title: "Our Group",
+//   students: ["John", "Pete", "Alice"],
+
+//   showList() {
+//     this.students.forEach(
+//       student => console.log(this.title + ': ' + student)
+//     );
+//   }
+// };
+
+// group.showList();
+
+
+// function timeLaps(func, ms) {
+//   return function() {
+//    setTimeout(() => func.apply(this, arguments) , ms)
+//   }
+// };
+// function sayHi(name){
+// console.log(name + " hello")
+// };
+// let test = timeLaps(sayHi, 4000);
+// test("alex");
+///////////////////////////////////// ФЛАГИ И ДЕСКРИПТОРЫ СВОЙСТ ОБЪЕКТА ////////////////////////////////////////
+
+// let user = {
+//   name: "Alex",
+//   sayHi() {
+//     return this.name + ", is admin"
+//   },
+//   isAdmin: true,
+// }
+
+// let discreption = Object.getOwnPropertyDescriptors(user, name);
+// console.log(discreption);
+
+// let user = {};
+// Object.defineProperty(user, "name", {
+//   value: "alex",
+//   enumerable: true,
+//   configurable: true,
+//   writable: true
+// });
+// console.log(user.name);
+// user.name = "John";
+// console.log(user.name);
+// Object.defineProperty(user, "name", {
+//   writable: false,
+// });
+// let test = Object.getOwnPropertyDescriptor(user, "name");
+// console.log(test);
+// user.name = "Alex"; /// ошибка доступности смены свойства.
+// console.log(user.name);
+
+
+///////////////////////////////////// ГЕТТЕРЫ И СЕТТЕРЫ ///////////////////////
+
+// let user = {
+//     name: "Alex",
+//     surname: "Smith",
+
+//     get fullName() {
+//         return (`${this.name} ${this.surname}`)
+//     },
+
+//     set fullName(value) {
+//         [this.name, this.surname] = value.split(" ");
+//     }
+// };
+// console.log(user.fullName);
+// user.fullName = "John Santos";
+// console.log(user.fullName);
+
+
+////////////////////////////////////// ПРОТОТИПНОЕ НАСЛЕДОВАНИЕ /////////////////
+
+// let animals = {
+//     eats: true,
+//     lives: true,
+// };
+
+// let rabbit = {
+//     jumps: true,
+// };
+
+// let bears = {
+//     strong: true,
+//     __proto__: animals,
+// };
+
+// rabbit.__proto__ = animals;
+
+// console.log(rabbit.eats);
+// console.log(bears.lives);
+// console.log(animals.jumps);
 
 
 
 
+
+
+
+
+
+     
      </script>
 
 

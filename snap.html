@@ -213,95 +213,137 @@
 
 
 
-     function fullYear() {       
-        for(let j = 0; j <7; j++) {
-            month31(year[j]);
-            function month31(month) {
-                for(let i = 1; i < 32; i++) {
-                    month.push(i);
-                }
-            }
-        }
-        for(let j = 7; j < 11; j++) {
-            month30(year[j]);
-            function month30(month) {
-                for(let i = 1; i < 31; i++) {
-                    month.push(i);
-                }
-            }
-        }
-        for(let j = 11; j < 12; j++) {
-            month29(year[j]);
-            function month29(month) {
-                for(let i = 1; i < 30; i++) {
-                    month.push(i);
-                }
-            }
-        }
-    }
-        fullYear();
-       
-       
+//      function fullYear() {       
+//         for(let j = 0; j <7; j++) {
+//             month31(year[j]);
+//             function month31(month) {
+//                 for(let i = 1; i < 32; i++) {
+//                     month.push(i);
+//                 }
+//             }
+//         }
+//         for(let j = 7; j < 11; j++) {
+//             month30(year[j]);
+//             function month30(month) {
+//                 for(let i = 1; i < 31; i++) {
+//                     month.push(i);
+//                 }
+//             }
+//         }
+//         for(let j = 11; j < 12; j++) {
+//             month29(year[j]);
+//             function month29(month) {
+//                 for(let i = 1; i < 30; i++) {
+//                     month.push(i);
+//                 }
+//             }
+//         }
+//     }
+//         fullYear();
 
-          function WeekDay() {
-            let j = 0;
-            let i = 0;
-          for (let g = 0; g < 12; g++) { 
-            for (let key of year1[g]) {
-                year1[g][i] = week[j];
-                j++;
-                i++;
-                    if(j > 6) {
-                        j = 0;
-                    }
-                    if (i >= year1[g].length) {
-                        i = 0;
+//         function WeekDay() {
+//             let j = 0;
+//             let i = 0;
+//         for (let g = 0; g < 12; g++) { 
+//             for (let key of year1[g]) {
+//                 year1[g][i] = week[j];
+//                 j++;
+//                 i++;
+//                     if(j > 6) {
+//                         j = 0;
+//                     }
+//                     if (i >= year1[g].length) {
+//                         i = 0;
                        
-                    } 
-                }
-            }
-        }
+//                     } 
+//                 }
+//             }
+//         }
         
-        WeekDay();
-        // alert(year[0].length);
-        // alert(year[10].length);
-        // alert(year[11].length);
-        
-        // alert(January);
-        // alert(February);
-        // alert(March);
-        // alert(April);
-        // alert(May);
-        // alert(June);
+//         WeekDay();
 
-        function result1(){
-            return year1[month - 1];
-        }
-            function result2(){
-                 return (result1()[day -1]);
-            }
-        alert(result2());
-        
-
-    
-        
-        
-
-        
-        
-
-        
+//         function result1(){
+//             return year1[month - 1];
+//         }
+//             function result2(){
+//                  return (result1()[day -1]);
+//             }
+//         alert(result2());
+//         // alert(result1());
         
 
 
-
-        // alert(result1());
-        
-            
+                          //..........ФУНКЦИИ ВЫСШЕГО ПОРЯДКА..........//
 
 
-        </script>
-    </body>
+// let arr = ["It`s", "in", "the", "Bag"];
+
+// function upper(str) {
+//     if(str.charCodeAt(0) < "a".charCodeAt(0)) {
+//         return str[0];
+//     } 
+// };
+// let result = arr.map(item => upper(item));
+// alert(result.join(''));
 
 
-</html>
+// let arr = [1, 13, 2, 11, 5, 18, 7, 9, 4, 8];
+// let result = arr.map(item => (item * item))
+
+
+// function even(num) {
+//     if(num % 2 != 1) {
+//         return num;
+//     }
+// }
+// let events = arr.filter(item => even(item));   // почему a  и  b так работают? //
+
+// let quad = events.map(item => item * item);
+// console.log(quad);
+
+// function compare(a, b) {
+//     if(a > b) return 1;
+//     if(a == b) return 0;
+//     if(a < b) return -1;
+// }
+// let comp = arr.sort(compare);
+// console.log(comp);
+
+//////////////////////////////////////////// БИНАРНЫЙ ПОИСК ////////////////////////////////////////////
+
+// function biSearch() {
+//     let min = +prompt("from");
+//     let max = +prompt("to");
+//     let answer = false;
+//     let number = 0;
+//     for(let i = 0; i <= max + 1; i++) {
+//          number = Math.floor((max + min) / 2);
+//          answer = confirm(number + " ?");
+//         if (answer == true) {
+//             return alert("your number is " + (number));
+//         } else {
+//             answer = prompt("> or <");
+//             if (answer == ">") {
+//                 min = number + 1;
+//             } else {
+//                 max = number;
+//             }
+//         }
+//     }
+// }
+// biSearch();
+///////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//         </script>
+//     </body>
+
+
+// </html>
+
+
+
